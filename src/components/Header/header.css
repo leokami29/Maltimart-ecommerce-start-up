@@ -57,11 +57,11 @@
      position: relative;
 }
 
-.badge{
+.badgee{
     position: absolute;
     top: 25%;
     right: -20%;
-    content: '';
+    content:'';
     background: var(--primary-color);
     color: #fff;
     border-radius: 50px;
