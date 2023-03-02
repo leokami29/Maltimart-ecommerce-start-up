@@ -7,6 +7,7 @@ import { Container, Row } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
 
 const nav__links = [
   {
@@ -26,6 +27,8 @@ const nav__links = [
 const Header = () => {
 
   const headerRef = useRef(null)
+
+  const totalQuantity = useSelector(state => state.cart.totalQuantity)
 
   const menuRef = useRef(null)
 
@@ -73,11 +76,11 @@ const Header = () => {
           <div className="nav__icons">
             <span className='fav__icon'>
               <i className="ri-heart-line"></i>
-              <span className="badge">1</span>
+              <span className="badgee">1</span>
             </span>
             <span className='cart__icon'>
               <i className="ri-shopping-bag-line"></i>
-              <span className="badge">1</span>
+              <span className="badgee">{totalQuantity}</span>
             </span>
             <span>
               {/* slace para hacer escala al icono de el usuario */}
