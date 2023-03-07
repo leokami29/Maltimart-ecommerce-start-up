@@ -4,7 +4,7 @@ import logo from '../../assets/images/eco-logo.png'
 import user_icon from '../../assets/images/user-icon.png'
 
 import { Container, Row } from 'reactstrap'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
@@ -25,6 +25,8 @@ const nav__links = [
 ]
 
 const Header = () => {
+
+  const navigate = useNavigate()
 
   const headerRef = useRef(null)
 
@@ -47,8 +49,12 @@ const Header = () => {
 
     return ()=> window.removeEventListener('scroll', stickyHeaderFunc)
   })
-
+  
   const menuToggle = () => menuRef.current.classList.toggle('active__menu')
+
+  const navigateToCart = () =>{
+    navigate('/cart')
+  }
 
   return <header className='header'  ref={headerRef}>
     <Container>
@@ -78,7 +84,7 @@ const Header = () => {
               <i className="ri-heart-line"></i>
               <span className="badgee">1</span>
             </span>
-            <span className='cart__icon'>
+            <span className='cart__icon' onClick={navigateToCart}>
               <i className="ri-shopping-bag-line"></i>
               <span className="badgee">{totalQuantity}</span>
             </span>

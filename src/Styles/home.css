@@ -18,7 +18,7 @@
     font-weight: 500;
 }
 
-.buy__btn {
+.buy__btn  {
     border: none;
     outline: none;
     padding: 8px 20px; 
@@ -28,7 +28,6 @@
     cursor: pointer;
     font-size: 1rem;
     margin-top: 40px;
-    text-decoration: none;
 }
 
 .buy__btn a:hover{
@@ -37,6 +36,15 @@
 }
 .buy__btn a{
     text-decoration: none;
+    border: none;
+    outline: none;
+    padding: 8px 20px; 
+    border-radius: 5px;
+    background: var(--primary-color);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 40px;
 }
 
 .hero__content {
