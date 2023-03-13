@@ -1,11 +1,11 @@
-import { Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import useAuht from '../custom-hooks/useAuht'
 
-const ProtectedRoute = ({children}) => {
+const ProtectedRoute = () => {
 
     const {currentUser} = useAuht()
 
-  return currentUser ? children : <Navigate to='/login'/>
+  return currentUser ? <Outlet/> : <Navigate to='/login'/>
 }
 
 export default ProtectedRoute
