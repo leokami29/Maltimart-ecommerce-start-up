@@ -10,9 +10,9 @@ import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { signOut } from 'firebase/auth'
 import { auth } from '../../firebase.config'
+import { toast } from 'react-toastify'
 
 import useAuht from '../../custom-hooks/useAuht'
-import { toast } from 'react-toastify'
 
 const nav__links = [
   {

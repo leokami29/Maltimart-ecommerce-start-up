@@ -16,8 +16,6 @@ const Layout = () => {
     {
       location.pathname.startsWith('/dashboard') ? <AdminNav/> : <Header/>
     }
-
-    <Header/>
       <div>
         <Routers/>
       </div>
