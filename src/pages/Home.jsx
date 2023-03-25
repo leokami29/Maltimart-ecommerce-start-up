@@ -12,9 +12,11 @@ import { useEffect, useState } from 'react'
 
 import heroImg from '../assets/images/hero-img.png'
 import counterImg from '../assets/images/counter-timer-img.png'
-import products from '../assets/data/products'
+import useGetData from '../custom-hooks/useGetData'
 
 const Home = () => {
+
+  const { data: products, loading } = useGetData('products');
 
   const year = new Date().getFullYear()
 
@@ -36,7 +38,7 @@ const Home = () => {
     setMobileProducts(filterMobileProducts)
     setWirelessProducts(filterWirelessProducts)
     setPopularProducts(filterPopularProducts)
-  }, [])
+  }, [products])
 
 
   return <Helmet title={'Home'}>
@@ -69,7 +71,9 @@ const Home = () => {
           <Col lg='12' className='text-center'>
             <h2 className="section__title">Trending Products</h2>
           </Col>
-          <ProductsList data={trendingProducts} />
+            {
+              loading ? <h4 className='py-5 text-center fw-bold'>Loading....</h4> : <ProductsList data={trendingProducts} />
+            }
         </Row>
       </Container>
     </section>
@@ -80,7 +84,9 @@ const Home = () => {
           <Col lg='12' className='text-center'>
             <h2 className="section__title">Best Sales</h2>
           </Col>
-          <ProductsList data={bestSaleProducts} />
+          {
+              loading ? <h4 className='py-5 text-center fw-bold'>Loading....</h4> : <ProductsList data={bestSaleProducts} />
+            }
         </Row>
       </Container>
     </section>
@@ -109,8 +115,12 @@ const Home = () => {
           <Col lg='12' className=' text-center'>
             <h2 className='section__title'>New Arrivals</h2>
           </Col>
-          <ProductsList data={mobileProducts}/>
-          <ProductsList data={wirelessProducts}/>
+          {
+              loading ? <h4 className='py-5 text-center fw-bold'>Loading....</h4> : <ProductsList data={mobileProducts} />
+            }
+          {
+              loading ? <h4 className='py-5 text-center fw-bold'>Loading....</h4> : <ProductsList data={wirelessProducts} />
+            }
         </Row>
       </Container>
     </section>
@@ -121,7 +131,9 @@ const Home = () => {
           <Col lg='12' className=' text-center'>
             <h2 className='section__title'>Popular in Category</h2>
           </Col>
-          <ProductsList data={popularProducts}/>
+          {
+              loading ? <h4 className='py-5 text-center fw-bold'>Loading....</h4> : <ProductsList data={popularProducts} />
+            }
         </Row>
       </Container>
     </section>

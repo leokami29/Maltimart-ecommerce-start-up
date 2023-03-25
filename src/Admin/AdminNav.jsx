@@ -1,11 +1,10 @@
 import { Container, Row } from 'reactstrap'
 import { motion } from 'framer-motion'
+import { Link, NavLink } from 'react-router-dom'
 
 import useAuht from '../custom-hooks/useAuht'
 
 import '../Styles/admin-nav.css'
-
-import { NavLink } from 'react-router-dom'
 
 const admin__nav = [
   {
@@ -40,10 +39,11 @@ const AdminNav = () => {
         <div className="admin__nav-top">
           <Container>
             <div className='admin__nav-wrapper-top'>
-              <div className="logo">
-                <h2>Multimart</h2>
-              </div>
-
+              <Link className=' text-decoration-none' to='/home'>
+                <div className="logo">
+                  <h2>Multimart</h2>
+                </div>
+              </Link>
               <div className="search__box">
                 <input type="text" placeholder='Search....' />
                 <span><i className="ri-search-line"></i></span>
@@ -51,7 +51,7 @@ const AdminNav = () => {
               <div className="admin__nav-top-right">
                 <span><i className="ri-notification-3-line"></i></span>
                 <span><i className="ri-settings-2-line"></i></span>
-                <motion.img whileTap={{ scale: 1.2 }} src={currentUser.photoURL} alt="" />
+                <motion.img whileTap={{ scale: 1.2 }} src={currentUser && currentUser.photoURL} alt="" />
               </div>
             </div>
           </Container>

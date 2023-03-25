@@ -26,7 +26,7 @@ const AddProducts = () => {
     try {
       const collectionRef = collection(db, 'products');
       const docRef = await addDoc(collectionRef, {
-        title: enterTitle,
+        productName: enterTitle,
         shortDesc: enterShortDesc,
         description: enterDescription,
         category: enterCategory,
@@ -85,11 +85,12 @@ const AddProducts = () => {
                   <span>Category</span>
                   <select className=' w-100 p-2' value={enterCategory}
                     onChange={e => setEnterCategory(e.target.value)}>
-                    <option value="chair">Chair</option>
-                    <option value="sofa">Sofa</option>
-                    <option value="mobil">Mobile</option>
-                    <option value="watch">Watch</option>
-                    <option value="wireless">Wireless</option>
+                      <option value="">-- Select Category --</option>
+                      <option value="chair">Chair</option>
+                      <option value="sofa">Sofa</option>
+                      <option value="mobil">Mobile</option>
+                      <option value="watch">Watch</option>
+                      <option value="wireless">Wireless</option>
                   </select>
                 </FormGroup>
               </div>

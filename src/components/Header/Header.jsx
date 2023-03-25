@@ -80,12 +80,15 @@ const Header = () => {
     <Container>
       <Row>
         <div className='nav__wrapper'>
-          <div className='logo'>
-            <img src={logo} alt="logo" />
-            <div>
-              <h1>Multimart</h1>
+          <Link className=' text-decoration-none' to='/home'>
+            <div className='logo'>
+              <img src={logo} alt="logo" />
+                <div>
+                  <h1>Multimart</h1>
+                </div>
             </div>
-          </div>
+          </Link>
+          
 
           <div className="navigation" ref={menuRef} onClick={menuToggle}>
             <ul className="menu">

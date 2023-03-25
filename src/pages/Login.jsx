@@ -8,7 +8,6 @@ import { auth } from '../firebase.config'
 import Helmet from '../components/Helmet/Helmet'
 
 import '../Styles/login.css'
-import { async } from '@firebase/util'
 
 const Login = () => {
 
@@ -29,7 +28,7 @@ const Login = () => {
       console.log(user)
       setLoadign(false)
       toast.success('Successfully logged in')
-      navigate('/checkout')
+      navigate('/home')
 
     } catch (error) {
       setLoadign(false)

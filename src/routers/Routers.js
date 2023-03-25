@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import AddProducts from '../Admin/AddProducts'
 import AllProducts from '../Admin/AllProducts'
 import Dashboard from '../Admin/Dashboard'
+import Users from '../Admin/Users'
 
 import Cart from '../pages/Cart'
 import CheckOut from '../pages/CheckOut'
@@ -29,6 +30,7 @@ const Routers = () => {
         <Route path='dashboard' element={<Dashboard/>}/>
         <Route path='dashboard/all-products' element={<AllProducts/>}/>
         <Route path='dashboard/add-product' element={<AddProducts/>}/>
+        <Route path='dashboard/users' element={<Users/>}/>
     </Route>
 
     {/* <Route path='checkout' element={<ProtectedRoute>
