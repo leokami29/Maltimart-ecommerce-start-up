@@ -4,23 +4,28 @@ import logo from '../../assets/images/eco-logo.png'
 import user_icon from '../../assets/images/user-icon.png'
 
 import { Container, Row } from 'reactstrap'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
+import { signOut } from 'firebase/auth'
+import { auth } from '../../firebase.config'
+import { toast } from 'react-toastify'
+
+import useAuht from '../../custom-hooks/useAuht'
 
 const nav__links = [
   {
-    path:'home',
-    display:'Home'
+    path: 'home',
+    display: 'Home'
   },
   {
-    path:'shop',
-    display:'Shop'
+    path: 'shop',
+    display: 'Shop'
   },
   {
-    path:'cart',
-    display:'Cart'
+    path: 'cart',
+    display: 'Cart'
   },
 ]
 
@@ -32,11 +37,15 @@ const Header = () => {
 
   const totalQuantity = useSelector(state => state.cart.totalQuantity)
 
+  const profieleActionsRef = useRef(null)
+
   const menuRef = useRef(null)
 
+  const { currentUser } = useAuht()
+
   const stickyHeaderFunc = () => {
-    window.addEventListener('scroll', ()=>{
-      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80 ) {
+    window.addEventListener('scroll', () => {
+      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
         headerRef.current.classList.add('sticky__header')
       } else {
         headerRef.current.classList.remove('sticky__header')
@@ -44,36 +53,50 @@ const Header = () => {
     })
   }
 
+  const logout = () =>{
+     signOut(auth).then(()=>{
+      navigate('/home')
+      toast.success('Logged out')
+     }).catch(err=>{
+        toast.error(err.message)
+     })
+  }
+
   useEffect(() => {
     stickyHeaderFunc()
 
-    return ()=> window.removeEventListener('scroll', stickyHeaderFunc)
+    return () => window.removeEventListener('scroll', stickyHeaderFunc)
   })
-  
+
   const menuToggle = () => menuRef.current.classList.toggle('active__menu')
 
-  const navigateToCart = () =>{
+  const navigateToCart = () => {
     navigate('/cart')
   }
 
-  return <header className='header'  ref={headerRef}>
+  const toggleProfileActions = () => profieleActionsRef.current.classList.toggle('show__profileActions')
+
+  return <header className='header' ref={headerRef}>
     <Container>
       <Row>
         <div className='nav__wrapper'>
-          <div className='logo'>
-            <img src={logo} alt="logo"/>
-            <div>
-              <h1>Multimart</h1>
+          <Link className=' text-decoration-none' to='/home'>
+            <div className='logo'>
+              <img src={logo} alt="logo" />
+                <div>
+                  <h1>Multimart</h1>
+                </div>
             </div>
-          </div>
+          </Link>
+          
 
           <div className="navigation" ref={menuRef} onClick={menuToggle}>
             <ul className="menu">
               {
                 nav__links.map((item, index) => (
                   <li className="nav__item" key={index}>
-                    <NavLink to={item.path} className={(navClass) => navClass.isActive ? 'nav__active':''}>{item.display}</NavLink>
-                  </li> 
+                    <NavLink to={item.path} className={(navClass) => navClass.isActive ? 'nav__active' : ''}>{item.display}</NavLink>
+                  </li>
                 ))
               }
             </ul>
@@ -88,15 +111,26 @@ const Header = () => {
               <i className="ri-shopping-bag-line"></i>
               <span className="badgee">{totalQuantity}</span>
             </span>
-            <span>
+            <div className='profile'>
               {/* slace para hacer escala al icono de el usuario */}
-              <motion.img whileTap={{ scale: 1.2 }} src={user_icon} alt="" />
-            </span>
+              <motion.img whileTap={{ scale: 1.2 }} src={currentUser ? currentUser.photoURL : user_icon} alt="" onClick={toggleProfileActions}/>
+              <div className="profile__actions" ref={profieleActionsRef} onClick={toggleProfileActions}>
+                {
+                  currentUser ? <span onClick={logout}>Logout</span> : 
+                  <div className=' d-flex align-items-center justify-content-center flex-column'>
+                    <Link className='text-decoration-none text-white' to='/login'>Login</Link> 
+                    <Link className='text-decoration-none text-white' to='/signup'>Signup</Link> 
+                    <Link className='text-decoration-none text-white' to='/dashboard'>Dashborad</Link> 
+                  </div>
+                }
+              </div>
+
+            </div>
             <div className="mobile__menu">
-            <span onClick={menuToggle}>
-              <i className="ri-menu-line"></i>
-            </span>
-          </div>
+              <span onClick={menuToggle}>
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
           </div>
 
         </div>
